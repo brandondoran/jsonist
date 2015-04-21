@@ -60,6 +60,8 @@ function makeMethod (method, data) {
 }
 
 
-module.exports.get  = makeMethod('GET'  , false)
-module.exports.post = makeMethod('POST' , true)
-module.exports.put  = makeMethod('PUT'  , true)
+module.exports.get    = makeMethod('GET'   , false)
+module.exports.post   = makeMethod('POST'  , true)
+module.exports.put    = makeMethod('PUT'   , true)
+module.exports.delete = makeMethod('DELETE', false)
+

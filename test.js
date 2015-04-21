@@ -131,3 +131,26 @@ test('fetch non-json doc', function (t) {
       .on('close', t.ok.bind(t, true, 'ended'))
   })
 })
+
+test('delete', function (t) {
+  t.plan(7)
+
+  testServer(null)
+    .on('ready', function (url) {
+      jsonist.delete(url, function (err, data, response) {
+        t.notOk(err, 'no error')
+        //t.deepEqual(data, testDoc, 'got correct doc')
+        t.equal(data, null, 'got correct doc')
+        t.ok(response, 'got response object')
+        t.equal(
+            response && response.headers && response.headers['content-type']
+          , 'application/json', 'verified response object by content-type header'
+        )
+      })
+    })
+    .on('request', function (req, data) {
+      t.equal(req.method, 'DELETE', 'got delete request')
+      t.equal(req.headers['accept'], 'application/json', 'got correct accept header')
+    })
+    .on('close', t.ok.bind(t, true, 'ended'))
+})
